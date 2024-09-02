@@ -31,5 +31,19 @@ server.get('/:id', async (req, res) => {
         res.status(500).json({ "status": "Not found" })
     }
 })
+server.post('/', async (req, res) => {
+    try {
+        const { body } = req
+        console.log(body)
+        const projects = await insert(body)
+        if (!projects) {
+            res.status(400).send()
+        } else {
+            res.status(200).json(projects)
+        }
+    } catch (err) {
+        res.status(500).json({ "status": "Not found" })
+    }
+})
 
 module.exports = server
