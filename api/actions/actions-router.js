@@ -1,7 +1,7 @@
 // Write your "actions" router here!
 
 const express = require('express');
-//const authentication = require('./actions-middlware')
+const { checkRoute, checkRoute2 } = require('./actions-middlware')
 const { get, insert, update, remove } = require('./actions-model')
 const server = express();
 //console.table({ id: 1, name: 'Azeem' })
@@ -53,7 +53,7 @@ server.delete('/:id', async (req, res) => {
 })
 
 //needs a way to check if the body has everything it needs
-server.put('/:id', async (req, res) => {
+server.put('/:id', checkRoute2, async (req, res) => {
     const { body } = req
     const { id } = req.params
 
@@ -69,7 +69,7 @@ server.put('/:id', async (req, res) => {
     }
 })
 
-server.post('/', async (req, res) => {
+server.post('/', checkRoute, async (req, res) => {
     const { body } = req
     try {
         const actions = await insert(body)
